@@ -17,12 +17,23 @@ class AsistenciaController(
     private val empleadoService: EmpleadoService // Inyectamos el servicio de empleados
 ) {
 
+    /**
+     * Obtiene todas las asistencias registradas en el sistema.
+     *
+     * @return ResponseEntity con el estado y los datos de las asistencias.
+     */
     @GetMapping
     fun getAsistencias(): ResponseEntity<Map<String, Any>> {
         val data = asistenciaService.getAsistencias()
         return ResponseEntity.ok(mapOf("status" to "success", "data" to data))
     }
 
+    /**
+     * Guarda una nueva asistencia para un empleado. Si el empleado no existe, devuelve un error.
+     *
+     * @param asistenciaDto objeto que contiene los datos de la asistencia a guardar.
+     * @return ResponseEntity con el resultado de la operación (éxito o error).
+     */
     @PostMapping
     fun saveAsistencia(
         @Validated @RequestBody asistenciaDto: AsistenciaDto
